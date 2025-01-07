@@ -2,7 +2,7 @@
   "name": "chat-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4000",
+  "proxy": "chat-server-tdh-production.up.railway.app",
   "dependencies": {
     "cra-template": "1.2.0",
     "react": "^19.0.0",
@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build --max-old-space-size=4096",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,5 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
