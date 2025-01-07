@@ -10,9 +10,14 @@ export const SocketProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
+    const socketURL =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:4000"
+        : "https://chat-server-tdh-production.up.railway.app";
+
     // Initialize socket connection
-    const socketInstance = io("chat-server-tdh-production.up.railway.app", {
-      auth: userData || {}, // Set userData if available
+    const socketInstance = io(socketURL, {
+      auth: userData || { guest: true },
     });
 
     setSocket(socketInstance);
@@ -29,12 +34,16 @@ export const SocketProvider = ({ children }) => {
       setUserData(data); // Store user data received from backend
     });
 
+    socketInstance.on("connect_error", (error) => {
+      console.error("Connection error:", error);
+    });
+
     return () => {
       if (socketInstance) {
         socketInstance.disconnect();
       }
     };
-  }, [userData]); // Trigger this effect when userData changes
+  }, [userData]); // Run once on mount
 
   const setUserInfo = (userInfo) => {
     if (socket) {

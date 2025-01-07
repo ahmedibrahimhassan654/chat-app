@@ -63,6 +63,7 @@ const HomePage = () => {
           >
             <option value="user">User</option>
             <option value="admin">Admin</option>
+            <option value="provider">Povider</option>
           </select>
         </div>
         <button type="submit">Submit</button>
