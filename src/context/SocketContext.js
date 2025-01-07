@@ -11,7 +11,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     // Initialize socket connection
-    const socketInstance = io("http://localhost:4000", {
+    const socketInstance = io("chat-server-tdh-production.up.railway.app", {
       auth: userData || {}, // Set userData if available
     });
 

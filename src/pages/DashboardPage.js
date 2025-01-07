@@ -11,8 +11,24 @@ const DashboardPage = () => {
   useEffect(() => {
     if (socket) {
       setIsConnected(socket.connected);
+
+      // Emit the 'user:online' event once socket is connected and user data is available
+      if (userData) {
+        socket.emit("user:online", { auth: userData });
+      }
+
+      // Listen for the 'dataBaseRooms' event
+      socket.on("dataBaseRooms", (response) => {
+        console.log("Received data from server:", response);
+        // Handle response (rooms or message)
+      });
+
+      // Listen for 'error' event in case of any error from backend
+      socket.on("error", (error) => {
+        console.error("Error from server:", error);
+      });
     }
-  }, [socket]);
+  }, [socket, userData]);
 
   // Handle user disconnect
   const handleDisconnect = () => {
