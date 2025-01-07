@@ -41,7 +41,7 @@ const DashboardPage = () => {
 
   return (
     <div>
-      {userData && isConnected ? (
+      {userData ? (
         <>
           <h1>User {userData.name} is connected now!</h1>
           <button onClick={handleDisconnect}>Disconnect</button>
